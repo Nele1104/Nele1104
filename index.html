@@ -8,28 +8,28 @@
   <style>
     :root {
       color-scheme: light;
-      --ink: #202c2a;
-      --muted: #52625e;
-      --paper: #f7f8f4;
+      --ink: #17202a;
+      --muted: #57606a;
+      --paper: #fafbfd;
       --surface: #fff;
-      --surface-strong: #edf7f1;
-      --accent: #20b581ff;
-      --accent-ink: #126247;
-      --line: #d8e0da;
+      --surface-strong: #f3f6f7;
+      --accent: #2e7d60;
+      --accent-ink: #1f6feb;
+      --line: rgba(20, 34, 45, 0.08);
       --shadow: rgb(32 44 42 / 10%);
-      --max-width: 1440px;
+      --max-width: 1100px;
     }
 
     body[data-theme="dark"] {
       color-scheme: dark;
-      --ink: #e8f0ff;
-      --muted: #b3c1d1;
-      --paper: #0d1721;
-      --surface: #122332;
-      --surface-strong: #183244;
-      --accent: #5ee0af;
-      --accent-ink: #b7f3d2;
-      --line: rgba(170, 194, 216, 0.18);
+      --ink: #e6eef6;
+      --muted: #a9b7c2;
+      --paper: #0b1220;
+      --surface: #0f1724;
+      --surface-strong: #121e2e;
+      --accent: #3fa07a;
+      --accent-ink: #7fb5ff;
+      --line: rgba(255, 255, 255, 0.06);
       --shadow: rgba(2, 8, 12, 0.45);
     }
 
@@ -45,13 +45,11 @@
 
     body {
       margin: 0;
-      background:
-        radial-gradient(circle at top, rgba(32, 181, 129, 0.11), transparent 28%),
-        var(--paper);
+      background: var(--paper);
       color: var(--ink);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: Arial, sans-serif;
       font-size: 1rem;
-      line-height: 1.8;
+      line-height: 1.6;
       transition: background-color 220ms ease, color 220ms ease;
     }
 
@@ -80,51 +78,59 @@
       top: 0;
       z-index: 20;
       color: #fff;
-      background: linear-gradient(110deg, #23856b, #43a583);
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.16);
+      background: linear-gradient(90deg, #2e7d60, #4aa07a);
+      box-shadow: 0 2px 12px rgba(30, 50, 60, 0.12);
     }
 
     .site-header-inner {
       display: flex;
       align-items: center;
-      gap: clamp(1rem, 4vw, 3rem);
+      justify-content: space-between;
+      gap: 1rem;
       min-height: 4.4rem;
+      padding-block: 0.45rem;
     }
 
     .site-header a {
       flex: 0 0 auto;
       color: #fff;
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      font-weight: 800;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
       text-decoration: none;
-      letter-spacing: -0.03em;
+      letter-spacing: 0.01em;
+      text-shadow: 0 2px 8px rgba(30, 50, 60, 0.08);
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
     }
 
     .theme-toggle {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 2.7rem;
-      height: 2.7rem;
-      margin-left: auto;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.08);
+      display: grid;
+      flex: 0 0 auto;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.13);
       color: #fff;
-      border-radius: 0.65rem;
+      border-radius: 50%;
       font: inherit;
       font-weight: 600;
       cursor: pointer;
-      transition: background 180ms ease, transform 180ms ease;
+      box-shadow: 0 2px 8px rgba(30, 50, 60, 0.08);
+      transition: background 180ms ease, border-color 180ms ease;
     }
 
     .theme-toggle:hover {
-      transform: translateY(-1px);
       background: rgba(255, 255, 255, 0.18);
     }
 
     .theme-toggle:focus-visible {
-      outline: 3px solid var(--accent);
-      outline-offset: 3px;
+      outline: 2px solid #ffe066;
+      outline-offset: 2px;
     }
 
     .toggle-icon {
@@ -145,8 +151,11 @@
       border: 0;
     }
 
-    main {
-      padding-block: 1.5rem 4rem;
+    main.page {
+      width: min(100% - 2rem, 1440px);
+      max-width: 1440px;
+      margin-inline: auto;
+      padding-block: 1rem 4rem;
     }
 
     section {
@@ -155,9 +164,9 @@
 
     .intro {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 220px;
-      align-items: center;
-      gap: clamp(2.5rem, 7vw, 5.5rem);
+      grid-template-columns: minmax(0, 1fr) minmax(240px, 320px);
+      align-items: start;
+      gap: clamp(1.5rem, 4vw, 3rem);
     }
 
     .eyebrow {
@@ -179,9 +188,9 @@
     h1 {
       max-width: 15ch;
       margin-bottom: 1.25rem;
-      font-size: clamp(2.5rem, 7vw, 4.5rem);
-      letter-spacing: -0.055em;
-      line-height: 1.05;
+      font-size: clamp(2rem, 5vw, 3rem);
+      letter-spacing: -0.035em;
+      line-height: 1.1;
     }
 
     h2 {
@@ -191,13 +200,14 @@
     }
 
     .intro-copy {
-      max-width: 62ch;
-      line-height: 1.9;
-      color: var(--muted);
+      max-width: none;
+      padding-top: 0.9rem;
+      color: var(--ink);
     }
 
     .intro-copy p {
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.15rem;
+      font-size: 1.1rem;
     }
 
     .intro-copy p:last-child {
@@ -212,33 +222,37 @@
     .portrait svg {
       display: block;
       width: 100%;
-      border-radius: 1rem;
+      max-height: 280px;
+      border-radius: 0.55rem;
       background: #e2e9e3;
-      height: auto;
-      object-fit: contain;
+      aspect-ratio: 1.25;
+      object-fit: cover;
     }
 
     .portrait figcaption {
-      margin-top: 0.65rem;
+      margin-top: 0.4rem;
       color: var(--muted);
       font-size: 0.85rem;
+      text-align: right;
     }
 
     .table-wrap {
       overflow-x: auto;
-      border: 1px solid var(--line);
-      border-radius: 0.75rem;
-      background: var(--surface);
+      border: 0;
+      border-radius: 0;
+      background: transparent;
     }
 
     table {
       width: 100%;
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0;
       text-align: left;
+      color: var(--ink);
     }
 
     caption {
-      padding: 1rem 1.1rem;
+      padding: 0.35rem 1rem 0.8rem;
       color: var(--muted);
       text-align: left;
       font-size: 0.9rem;
@@ -246,8 +260,8 @@
 
     th,
     td {
-      padding: 1rem 1.1rem;
-      border-top: 1px solid var(--line);
+      padding: 0.9rem 1rem;
+      border-top: 0;
       vertical-align: top;
     }
 
@@ -255,8 +269,21 @@
       transition: background-color 160ms ease;
     }
 
+    thead th {
+      border-bottom: 1px solid var(--line);
+    }
+
     tbody tr:hover {
       background: var(--surface-strong);
+    }
+
+    tbody td {
+      color: var(--muted);
+      border-bottom: 1px solid var(--line);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
     }
 
     th {
@@ -291,41 +318,42 @@
     }
 
     .tablist {
+      position: relative;
       display: inline-flex;
-      align-self: stretch;
       flex-wrap: nowrap;
       gap: 0.15rem;
-      padding: 0.35rem 0;
+      height: 3.2rem;
+      padding: 0;
       border: 0;
     }
 
     .tab {
-      position: relative;
       border: 0;
-      border-radius: 0.7rem 0.7rem 0 0;
+      border-radius: 0.65rem 0.65rem 0 0;
       background: transparent;
-      color: rgba(255, 255, 255, 0.9);
+      color: #fff;
       font: inherit;
-      font-weight: 700;
-      padding: 0.55rem 1rem;
+      font-weight: 600;
+      font-size: 1.05rem;
+      padding: 0.5rem 1rem;
       cursor: pointer;
       transition: color 180ms ease, background-color 180ms ease;
     }
 
     .tab.is-active {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.1);
       color: #fff;
     }
 
-    .tab.is-active::after {
+    .tab-indicator {
       position: absolute;
-      right: 0;
-      bottom: -0.4rem;
+      bottom: 0;
       left: 0;
       height: 3px;
       border-radius: 3px;
       background: #fff;
-      content: "";
+      pointer-events: none;
+      transition: width 280ms cubic-bezier(0.4, 1.4, 0.6, 1), transform 280ms cubic-bezier(0.4, 1.4, 0.6, 1);
     }
 
     .tab:hover {
@@ -343,11 +371,11 @@
     }
 
     .about-panel {
-      padding-top: 1.5rem;
+      padding-top: 0.2rem;
     }
 
     .about-panel > section {
-      margin-top: clamp(2.5rem, 6vw, 4rem);
+      margin-top: clamp(1.8rem, 4vw, 2.6rem);
     }
 
     @keyframes fadeUp {
@@ -471,68 +499,75 @@
     }
 
     .news-list {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: 1fr;
+      margin-top: 1.5rem;
     }
 
     .news-card {
-      overflow: hidden;
-      padding: 0;
-      transition: transform 180ms ease, box-shadow 180ms ease;
+      display: grid;
+      grid-template-columns: minmax(250px, 34%) minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(1.5rem, 4vw, 2.5rem);
+      padding: 0 0 2rem;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      transition: transform 180ms ease;
     }
 
     .news-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 14px 28px var(--shadow);
-    }
-
-    .news-link {
-      display: block;
-      height: 100%;
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .news-link:focus-visible {
-      outline: 3px solid var(--accent);
-      outline-offset: -3px;
-      border-radius: 1rem;
-    }
-
-    .news-link:hover h3 {
-      color: var(--accent-ink);
-      text-decoration: underline;
-      text-underline-offset: 0.2em;
     }
 
     .news-image {
       display: block;
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 3 / 2;
       object-fit: cover;
       background: var(--surface-strong);
+      border-radius: 0.7rem;
+      box-shadow: 0 2px 16px var(--shadow);
     }
 
     .news-copy {
-      padding: 1.2rem;
+      padding: 0.5rem 0;
     }
 
     .news-copy h3 {
-      margin-bottom: 0.5rem;
-      font-size: 1.08rem;
+      margin-bottom: 0.45rem;
+      font-size: clamp(1.5rem, 3vw, 2.15rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.025em;
     }
 
     .news-date {
       display: block;
-      margin-bottom: 0.5rem;
-      font-size: 0.8rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+      font-size: 1rem;
     }
 
     .news-copy p {
-      margin-bottom: 0;
+      margin-bottom: 1rem;
       color: var(--muted);
-      font-size: 0.92rem;
+      font-size: 1.12rem;
+      line-height: 1.45;
+    }
+
+    .news-read-more {
+      display: inline-block;
+      padding: 0.35em 1.15em;
+      border: 1.5px solid currentColor;
+      border-radius: 999px;
+      color: var(--accent-ink);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .news-read-more:hover {
+      background: var(--surface-strong);
     }
 
     .news-status {
@@ -624,23 +659,17 @@
       }
 
       .portrait {
-        max-width: 260px;
-      }
-
-      .tabs-shell {
-        padding: 1rem;
-      }
-
-      .section-heading-wrap {
-        align-items: center;
-        gap: 0.25rem;
+        max-width: 320px;
       }
 
       .site-header-inner {
         flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 0.25rem 0.75rem;
-        padding-block: 0.45rem;
+        gap: 0.35rem 0.75rem;
+        padding-block: 0.5rem;
+      }
+
+      .header-controls {
+        display: contents;
       }
 
       .tablist {
@@ -654,7 +683,26 @@
       }
 
       .tab {
-        padding-inline: 0.75rem;
+        padding-inline: 0.7rem;
+        font-size: 0.98rem;
+      }
+
+      .news-card {
+        grid-template-columns: 1fr;
+        gap: 0.9rem;
+        padding-bottom: 1.5rem;
+      }
+
+      .news-image {
+        max-height: 260px;
+      }
+
+      .news-copy h3 {
+        font-size: 1.55rem;
+      }
+
+      main {
+        padding-top: 0.8rem;
       }
     }
 
@@ -663,9 +711,13 @@
         scroll-behavior: auto;
       }
 
+      .tab-panel,
+      .tab-indicator,
       .card,
+      .news-card,
       tbody tr {
         transition: none;
+        animation: none;
       }
 
       .card:hover {
@@ -678,35 +730,34 @@
   <header class="site-header">
     <div class="page site-header-inner">
       <a href="#start" aria-label="Zur Startseite">Nele</a>
-      <nav class="tablist" role="tablist" aria-label="Inhaltsbereiche">
-        <button class="tab is-active" type="button" role="tab" id="tab-about" aria-selected="true" aria-controls="panel-about" data-tab="about">About</button>
-        <button class="tab" type="button" role="tab" id="tab-news" aria-selected="false" aria-controls="panel-news" data-tab="news">News</button>
-        <button class="tab" type="button" role="tab" id="tab-projects" aria-selected="false" aria-controls="panel-projects" data-tab="projects">Projects</button>
-      </nav>
-      <button class="theme-toggle" type="button" aria-label="Hell-/Dunkelmodus umschalten" aria-pressed="false">
-        <span class="toggle-icon" aria-hidden="true">☀️</span>
-        <span class="toggle-label">Light</span>
-      </button>
+      <div class="header-controls">
+        <nav class="tablist" role="tablist" aria-label="Inhaltsbereiche">
+          <button class="tab is-active" type="button" role="tab" id="tab-about" aria-selected="true" aria-controls="panel-about" data-tab="about">About</button>
+          <button class="tab" type="button" role="tab" id="tab-news" aria-selected="false" aria-controls="panel-news" data-tab="news">News</button>
+          <button class="tab" type="button" role="tab" id="tab-projects" aria-selected="false" aria-controls="panel-projects" data-tab="projects">Projects</button>
+          <span class="tab-indicator" aria-hidden="true"></span>
+        </nav>
+        <button class="theme-toggle" type="button" aria-label="Hell-/Dunkelmodus umschalten" aria-pressed="false">
+          <span class="toggle-icon" aria-hidden="true">☀️</span>
+          <span class="toggle-label">Light</span>
+        </button>
+      </div>
     </div>
   </header>
 
   <main id="start" class="page">
     <section id="panel-about" class="tab-panel is-active about-panel" role="tabpanel" aria-labelledby="tab-about">
       <div class="intro">
-        <div>
-          <p class="eyebrow">Hallo, schön, dass du hier bist</p>
-          <h1>Ich bin Nele.</h1>
-          <div class="intro-copy">
-            <p>
-              Nach meinem Abitur 2024 in Wittlich studiere ich Geoinformatik und
-              Vermessung in Mainz. Mich begeistert, wie Karten und räumliche Daten
-              neue Perspektiven auf unsere Welt eröffnen.
-            </p>
-            <p>
-              Hier findest du die zwei wichtigsten Etappen meines bisherigen Weges
-              und ein paar Links zu meinen Interessen.
-            </p>
-          </div>
+        <div class="intro-copy">
+          <p>
+            Hallo, schön, dass du hier bist! Nach meinem Abitur 2024 in Wittlich
+            studiere ich Geoinformatik und Vermessung in Mainz. Mich begeistert,
+            wie Karten und räumliche Daten neue Perspektiven auf unsere Welt eröffnen.
+          </p>
+          <p>
+            Hier findest du die zwei wichtigsten Etappen meines bisherigen Weges
+            und ein paar Links zu meinen Interessen.
+          </p>
         </div>
 
         <figure class="portrait">
@@ -738,12 +789,16 @@
     </section>
 
     <section id="panel-news" class="tab-panel" role="tabpanel" aria-labelledby="tab-news">
+      <h2>News</h2>
+      <p>Aktuelles aus meinem Studium und meinen Projekten.</p>
       <div class="news-list" id="news-list" aria-live="polite">
         <p class="news-status">News werden geladen …</p>
       </div>
     </section>
 
     <section id="panel-projects" class="tab-panel" role="tabpanel" aria-labelledby="tab-projects">
+      <h2>Projects &amp; Beispiele</h2>
+      <p>Eine Auswahl meiner digitalen Projekte und Web-Maps.</p>
           <div class="gallery">
             <article class="card">
               <a href="https://github.com/Nele1104/Nele1104" aria-label="GitHub-Repository öffnen" target="_blank" rel="noopener noreferrer">
@@ -846,7 +901,16 @@
 
     const tabs = document.querySelectorAll('[role="tab"]');
     const panels = document.querySelectorAll('[role="tabpanel"]');
+    const tabIndicator = document.querySelector('.tab-indicator');
     const newsList = document.querySelector('#news-list');
+
+    function moveTabIndicator(tab) {
+      tabIndicator.style.width = `${tab.offsetWidth}px`;
+      tabIndicator.style.transform = `translateX(${tab.offsetLeft}px)`;
+    }
+
+    const selectedTab = document.querySelector('[role="tab"][aria-selected="true"]');
+    moveTabIndicator(selectedTab);
 
     function formatNewsDate(value) {
       const date = new Date(`${value}T00:00:00`);
@@ -878,7 +942,7 @@
         const image = document.createElement('img');
         image.className = 'news-image';
         image.src = item.image;
-        image.alt = '';
+        image.alt = item.title;
         image.loading = 'lazy';
 
         const copy = document.createElement('div');
@@ -903,18 +967,17 @@
           }
 
           const link = document.createElement('a');
-          link.className = 'news-link';
+          link.className = 'news-read-more';
           link.href = destination.href;
-          link.setAttribute('aria-label', `${item.title} öffnen`);
+          link.textContent = 'Mehr erfahren';
           if (destination.origin !== window.location.origin) {
             link.target = '_blank';
             link.rel = 'noopener noreferrer';
           }
-          link.append(image, copy);
-          article.append(link);
-        } else {
-          article.append(image, copy);
+          copy.append(link);
         }
+
+        article.append(image, copy);
         return article;
       });
 
@@ -949,11 +1012,17 @@
           item.classList.toggle('is-active', isActive);
           item.setAttribute('aria-selected', String(isActive));
         });
+        moveTabIndicator(tab);
 
         panels.forEach((panel) => {
           const isActive = panel.id === `panel-${target}`;
           panel.classList.toggle('is-active', isActive);
         });
+      });
+
+      window.addEventListener('resize', () => {
+        const activeTab = document.querySelector('[role="tab"][aria-selected="true"]');
+        moveTabIndicator(activeTab);
       });
 
       tab.addEventListener('keydown', (event) => {
