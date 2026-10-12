@@ -539,6 +539,27 @@
       box-shadow: 0 2px 16px var(--shadow);
     }
 
+    .news-image-link {
+      display: block;
+      overflow: hidden;
+      border-radius: 0.7rem;
+    }
+
+    .news-image-link .news-image {
+      transition: transform 180ms ease;
+    }
+
+    .news-image-link:hover .news-image {
+      transform: scale(1.025);
+    }
+
+    .news-image-link:focus-visible,
+    .news-title-link:focus-visible,
+    .news-read-more:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 4px;
+    }
+
     .news-copy {
       padding: 0.5rem 0;
     }
@@ -549,6 +570,17 @@
       font-weight: 800;
       line-height: 1.12;
       letter-spacing: -0.025em;
+    }
+
+    .news-title-link {
+      color: inherit;
+      text-decoration-color: var(--accent);
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.12em;
+    }
+
+    .news-title-link:hover {
+      color: var(--accent-ink);
     }
 
     .news-date {
@@ -735,6 +767,7 @@
       .theme-toggle,
       .card,
       .news-card,
+      .news-image-link .news-image,
       .contact-links a,
       tbody tr {
         transition: none;
@@ -1002,6 +1035,28 @@
         image.alt = item.title;
         image.loading = 'lazy';
 
+        let imageContent = image;
+        let destination = null;
+        if (item.link && item.link.trim()) {
+          destination = new URL(item.link.trim(), document.baseURI);
+          if (!['http:', 'https:'].includes(destination.protocol)) {
+            throw new TypeError('News-Links müssen HTTP- oder HTTPS-Adressen sein.');
+          }
+        }
+
+        if (destination) {
+          const imageLink = document.createElement('a');
+          imageLink.className = 'news-image-link';
+          imageLink.href = destination.href;
+          imageLink.setAttribute('aria-label', `Meldung öffnen: ${item.title}`);
+          if (destination.origin !== window.location.origin) {
+            imageLink.target = '_blank';
+            imageLink.rel = 'noopener noreferrer';
+          }
+          imageLink.append(image);
+          imageContent = imageLink;
+        }
+
         const copy = document.createElement('div');
         copy.className = 'news-copy';
 
@@ -1011,18 +1066,25 @@
         date.textContent = formatNewsDate(item.date);
 
         const title = document.createElement('h3');
-        title.textContent = item.title;
+        if (destination) {
+          const titleLink = document.createElement('a');
+          titleLink.className = 'news-title-link';
+          titleLink.href = destination.href;
+          titleLink.textContent = item.title;
+          if (destination.origin !== window.location.origin) {
+            titleLink.target = '_blank';
+            titleLink.rel = 'noopener noreferrer';
+          }
+          title.append(titleLink);
+        } else {
+          title.textContent = item.title;
+        }
 
         const summary = document.createElement('p');
         summary.textContent = item.summary;
 
         copy.append(date, title, summary);
-        if (item.link) {
-          const destination = new URL(item.link, document.baseURI);
-          if (!['http:', 'https:'].includes(destination.protocol)) {
-            throw new TypeError('News-Links müssen HTTP- oder HTTPS-Adressen sein.');
-          }
-
+        if (destination) {
           const link = document.createElement('a');
           link.className = 'news-read-more';
           link.href = destination.href;
@@ -1034,7 +1096,7 @@
           copy.append(link);
         }
 
-        article.append(image, copy);
+        article.append(imageContent, copy);
         return article;
       });
 

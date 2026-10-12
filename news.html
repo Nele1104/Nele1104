@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Meldung von Nele zu Geoinformatik und Karten.">
+  <title>News — Nele</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17202a;
+      --muted: #57606a;
+      --paper: #fafbfd;
+      --surface: #fff;
+      --accent: #2e7d60;
+      --accent-ink: #1f6feb;
+      --line: rgba(20, 34, 45, 0.08);
+      --shadow: rgb(32 44 42 / 10%);
+    }
+
+    body[data-theme="dark"] {
+      color-scheme: dark;
+      --ink: #e6eef6;
+      --muted: #a9b7c2;
+      --paper: #0b1220;
+      --surface: #0f1724;
+      --accent: #3fa07a;
+      --accent-ink: #7fb5ff;
+      --line: rgba(255, 255, 255, 0.06);
+      --shadow: rgba(2, 8, 12, 0.45);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Arial, sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent-ink);
+      text-underline-offset: 0.2em;
+    }
+
+    a:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    .site-header {
+      padding: 0.75rem 1rem;
+      background: linear-gradient(90deg, #2e7d60, #4aa07a);
+      color: #fff;
+    }
+
+    .site-header a {
+      color: inherit;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    main {
+      width: min(100% - 2rem, 800px);
+      margin: clamp(2rem, 7vw, 5rem) auto;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+
+    article {
+      padding: clamp(1rem, 4vw, 2.5rem);
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      background: var(--surface);
+      box-shadow: 0 8px 24px var(--shadow);
+    }
+
+    .eyebrow,
+    time {
+      color: var(--muted);
+    }
+
+    .eyebrow {
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0.2rem 0 0.5rem;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      line-height: 1.15;
+    }
+
+    time {
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+
+    .news-image {
+      display: block;
+      width: 100%;
+      max-height: 440px;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      border-radius: 0.7rem;
+      background: var(--paper);
+    }
+
+    .summary {
+      margin: 1.5rem 0 0;
+      color: var(--muted);
+      font-size: 1.15rem;
+    }
+
+    .status {
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body data-theme="dark">
+  <header class="site-header">
+    <a href="index.html" aria-label="Zur Website von Nele">Nele</a>
+  </header>
+
+  <main>
+    <a class="back-link" href="index.html">← Zurück zur Website</a>
+    <article id="news-article" aria-live="polite">
+      <p class="status">Meldung wird geladen …</p>
+    </article>
+  </main>
+
+  <script>
+    const article = document.querySelector('#news-article');
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+
+    try {
+      const savedTheme = localStorage.getItem('theme');
+      document.body.dataset.theme = savedTheme === 'light' ? 'light' : 'dark';
+    } catch (error) {
+      console.warn('Die gespeicherte Theme-Auswahl konnte nicht gelesen werden:', error);
+    }
+
+    function formatDate(value) {
+      const date = new Date(`${value}T00:00:00`);
+      return Number.isNaN(date.getTime())
+        ? value
+        : new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' }).format(date);
+    }
+
+    async function loadNewsArticle() {
+      try {
+        if (!id) {
+          throw new Error('In der Adresse fehlt die Meldungs-ID.');
+        }
+
+        const response = await fetch('assets/news.json');
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const news = await response.json();
+        const item = news.find((entry) => entry.id === id);
+        if (!item) {
+          throw new Error(`Keine Meldung mit der ID "${id}" gefunden.`);
+        }
+
+        const eyebrow = document.createElement('p');
+        eyebrow.className = 'eyebrow';
+        eyebrow.textContent = 'News · Nele';
+
+        const title = document.createElement('h1');
+        title.textContent = item.title;
+
+        const date = document.createElement('time');
+        date.dateTime = item.date;
+        date.textContent = formatDate(item.date);
+
+        const image = document.createElement('img');
+        image.className = 'news-image';
+        image.src = item.image;
+        image.alt = item.title;
+
+        const summary = document.createElement('p');
+        summary.className = 'summary';
+        summary.textContent = item.summary;
+
+        article.replaceChildren(eyebrow, title, date, image, summary);
+        document.title = `${item.title} — Nele`;
+      } catch (error) {
+        console.error('Die Meldung konnte nicht geladen werden:', error);
+        const status = document.createElement('p');
+        status.className = 'status';
+        status.textContent = 'Diese Meldung konnte nicht geladen werden. Bitte prüfe den Link und öffne die Website über einen Webserver.';
+        article.replaceChildren(status);
+      }
+    }
+
+    loadNewsArticle();
+  </script>
+</body>
+</html>
