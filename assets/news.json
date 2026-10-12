@@ -1,0 +1,20 @@
+[
+  {
+    "date": "2026-10-10",
+    "title": "Neue Projekte im Bereich Kartografie",
+    "summary": "In der aktuellen Semesterphase beschäftige ich mich intensiver mit digitalen Karten und der Visualisierung räumlicher Daten.",
+    "image": "assets/news-kartografie.svg"
+  },
+  {
+    "date": "2026-10-02",
+    "title": "Geoinformationssysteme im Fokus",
+    "summary": "Ich vertiefe meine Kenntnisse in GIS und erkunde neue Möglichkeiten, Karteninhalte verständlich und ansprechend zu gestalten.",
+    "image": "assets/news-gis.svg"
+  },
+  {
+    "date": "2026-09-20",
+    "title": "Räumliche Daten erzählen Geschichten",
+    "summary": "Mich begeistert, wie Geodaten komplexe Zusammenhänge sichtbar machen und neue Perspektiven auf unsere Umgebung eröffnen.",
+    "image": "assets/news-geodaten.svg"
+  }
+]

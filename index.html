@@ -17,7 +17,7 @@
       --accent-ink: #126247;
       --line: #d8e0da;
       --shadow: rgb(32 44 42 / 10%);
-      --max-width: 980px;
+      --max-width: 1440px;
     }
 
     body[data-theme="dark"] {
@@ -79,45 +79,47 @@
       position: sticky;
       top: 0;
       z-index: 20;
-      backdrop-filter: blur(12px);
-      background: color-mix(in srgb, var(--paper) 78%, transparent);
-      border-bottom: 1px solid var(--line);
+      color: #fff;
+      background: linear-gradient(110deg, #23856b, #43a583);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.16);
     }
 
     .site-header-inner {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding-block: 1rem;
+      gap: clamp(1rem, 4vw, 3rem);
+      min-height: 4.4rem;
     }
 
     .site-header a {
-      color: var(--ink);
-      font-weight: 700;
+      flex: 0 0 auto;
+      color: #fff;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 800;
       text-decoration: none;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.03em;
     }
 
     .theme-toggle {
       display: inline-flex;
       align-items: center;
-      gap: 0.6rem;
-      border: 1px solid var(--line);
-      background: var(--surface);
-      color: var(--ink);
-      border-radius: 999px;
-      padding: 0.6rem 0.9rem;
+      justify-content: center;
+      width: 2.7rem;
+      height: 2.7rem;
+      margin-left: auto;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border-radius: 0.65rem;
       font: inherit;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 6px 18px var(--shadow);
-      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+      transition: background 180ms ease, transform 180ms ease;
     }
 
     .theme-toggle:hover {
       transform: translateY(-1px);
-      border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+      background: rgba(255, 255, 255, 0.18);
     }
 
     .theme-toggle:focus-visible {
@@ -128,18 +130,27 @@
     .toggle-icon {
       display: inline-grid;
       place-items: center;
-      width: 1.6rem;
-      height: 1.6rem;
-      border-radius: 50%;
-      background: var(--surface-strong);
+      font-size: 1.1rem;
+    }
+
+    .toggle-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     main {
-      padding-block: clamp(3rem, 8vw, 6rem);
+      padding-block: 1.5rem 4rem;
     }
 
     section {
-      margin-top: clamp(4rem, 9vw, 7rem);
+      margin-top: 0;
     }
 
     .intro {
@@ -245,7 +256,7 @@
     }
 
     tbody tr:hover {
-      background: #e9f7f0;
+      background: var(--surface-strong);
     }
 
     th {
@@ -281,36 +292,45 @@
 
     .tablist {
       display: inline-flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      background: rgba(255, 255, 255, 0.2);
-      padding: 0.35rem;
-      border: 1px solid var(--line);
-      border-radius: 999px;
+      align-self: stretch;
+      flex-wrap: nowrap;
+      gap: 0.15rem;
+      padding: 0.35rem 0;
+      border: 0;
     }
 
     .tab {
       position: relative;
       border: 0;
-      border-radius: 999px;
+      border-radius: 0.7rem 0.7rem 0 0;
       background: transparent;
-      color: var(--muted);
+      color: rgba(255, 255, 255, 0.9);
       font: inherit;
       font-weight: 700;
-      padding: 0.7rem 1rem;
+      padding: 0.55rem 1rem;
       cursor: pointer;
-      transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
+      transition: color 180ms ease, background-color 180ms ease;
     }
 
     .tab.is-active {
-      background: var(--surface);
-      color: var(--ink);
-      box-shadow: 0 8px 18px var(--shadow);
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    .tab.is-active::after {
+      position: absolute;
+      right: 0;
+      bottom: -0.4rem;
+      left: 0;
+      height: 3px;
+      border-radius: 3px;
+      background: #fff;
+      content: "";
     }
 
     .tab:hover {
-      transform: translateY(-1px);
-      color: var(--ink);
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .tab-panel {
@@ -320,6 +340,14 @@
 
     .tab-panel.is-active {
       display: block;
+    }
+
+    .about-panel {
+      padding-top: 1.5rem;
+    }
+
+    .about-panel > section {
+      margin-top: clamp(2.5rem, 6vw, 4rem);
     }
 
     @keyframes fadeUp {
@@ -392,17 +420,36 @@
       font-size: 0.92rem;
     }
 
+    .about-grid,
     .focus-grid,
-    .interest-list {
+    .interest-list,
+    .news-list {
       display: grid;
       gap: 1rem;
     }
 
-    .focus-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    .about-grid {
+      grid-template-columns: minmax(0, 1fr) 280px;
+      align-items: center;
+      gap: clamp(1.5rem, 4vw, 3rem);
     }
 
-    .mini-card {
+    .about-copy {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .about-copy p {
+      margin-bottom: 1rem;
+    }
+
+    .focus-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 1.25rem;
+    }
+
+    .mini-card,
+    .news-card {
       padding: 1.2rem;
       border: 1px solid var(--line);
       border-radius: 1rem;
@@ -416,9 +463,61 @@
       font-size: 1.1rem;
     }
 
-    .mini-card span {
+    .mini-card span,
+    .news-date {
       color: var(--muted);
       font-size: 0.92rem;
+    }
+
+    .news-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .news-card {
+      overflow: hidden;
+      padding: 0;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .news-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px var(--shadow);
+    }
+
+    .news-image {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: var(--surface-strong);
+    }
+
+    .news-copy {
+      padding: 1.2rem;
+    }
+
+    .news-copy h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.08rem;
+    }
+
+    .news-date {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .news-copy p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .news-status {
+      grid-column: 1 / -1;
+      color: var(--muted);
     }
 
     .interest-list {
@@ -457,7 +556,10 @@
     }
 
     @media (max-width: 720px) {
-      .gallery {
+      .gallery,
+      .focus-grid,
+      .interest-list,
+      .news-list {
         grid-template-columns: 1fr;
       }
     }
@@ -470,6 +572,36 @@
 
       .portrait {
         max-width: 260px;
+      }
+
+      .tabs-shell {
+        padding: 1rem;
+      }
+
+      .section-heading-wrap {
+        align-items: center;
+        gap: 0.25rem;
+      }
+
+      .site-header-inner {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.25rem 0.75rem;
+        padding-block: 0.45rem;
+      }
+
+      .tablist {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .theme-toggle {
+        margin-left: auto;
+      }
+
+      .tab {
+        padding-inline: 0.75rem;
       }
     }
 
@@ -489,126 +621,282 @@
     }
   </style>
 </head>
-<body>
+<body data-theme="dark">
   <header class="site-header">
-    <div class="page">
+    <div class="page site-header-inner">
       <a href="#start" aria-label="Zur Startseite">Nele</a>
+      <nav class="tablist" role="tablist" aria-label="Inhaltsbereiche">
+        <button class="tab is-active" type="button" role="tab" id="tab-about" aria-selected="true" aria-controls="panel-about" data-tab="about">About</button>
+        <button class="tab" type="button" role="tab" id="tab-news" aria-selected="false" aria-controls="panel-news" data-tab="news">News</button>
+        <button class="tab" type="button" role="tab" id="tab-projects" aria-selected="false" aria-controls="panel-projects" data-tab="projects">Projects</button>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Hell-/Dunkelmodus umschalten" aria-pressed="false">
+        <span class="toggle-icon" aria-hidden="true">☀️</span>
+        <span class="toggle-label">Light</span>
+      </button>
     </div>
   </header>
 
   <main id="start" class="page">
-    <div class="intro">
-      <div>
-        <p class="eyebrow">Hallo, schön, dass du hier bist</p>
-        <h1>Ich bin Nele.</h1>
-        <div class="intro-copy">
-          <p>
-            Nach meinem Abitur 2024 in Wittlich studiere ich Geoinformatik und
-            Vermessung in Mainz. Mich begeistert, wie Karten und räumliche Daten
-            neue Perspektiven auf unsere Welt eröffnen.
-          </p>
-          <p>
-            Hier findest du die zwei wichtigsten Etappen meines bisherigen Weges
-            und ein paar Links zu meinen Interessen.
-          </p>
+    <section id="panel-about" class="tab-panel is-active about-panel" role="tabpanel" aria-labelledby="tab-about">
+      <div class="intro">
+        <div>
+          <p class="eyebrow">Hallo, schön, dass du hier bist</p>
+          <h1>Ich bin Nele.</h1>
+          <div class="intro-copy">
+            <p>
+              Nach meinem Abitur 2024 in Wittlich studiere ich Geoinformatik und
+              Vermessung in Mainz. Mich begeistert, wie Karten und räumliche Daten
+              neue Perspektiven auf unsere Welt eröffnen.
+            </p>
+            <p>
+              Hier findest du die zwei wichtigsten Etappen meines bisherigen Weges
+              und ein paar Links zu meinen Interessen.
+            </p>
+          </div>
         </div>
+
+        <figure class="portrait">
+          <img src="IMG-20180205-WA0006.jpg" alt="Nele mit ihrem Hund" width="1260" height="1260">
+          <figcaption>Nele</figcaption>
+        </figure>
       </div>
 
-      <figure class="portrait">
-        <img src="IMG-20180205-WA0006.jpg" alt="Nele mit ihrem Hund" width="1260" height="1260">
-        <figcaption>Nele</figcaption>
-      </figure>
-    </div>
+      <section aria-labelledby="weg-heading">
+        <h2 id="weg-heading">Ein paar Stationen</h2>
+        <div class="table-wrap">
+          <table>
+            <caption>Zwei Etappen meines bisherigen Weges</caption>
+            <thead>
+              <tr>
+                <th scope="col">Jahr</th>
+                <th scope="col">Station</th>
+                <th scope="col">Ort</th>
+                <th scope="col">Stichwort</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>2024</td><td>Abitur</td><td>Wittlich</td><td>Schulabschluss</td></tr>
+              <tr><td>Seit 2024</td><td>Geoinformatik und Vermessung</td><td>Mainz</td><td>Studium</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </section>
 
-    <section aria-labelledby="weg-heading">
-      <h2 id="weg-heading">Ein paar Stationen</h2>
-      <div class="table-wrap">
-        <table>
-          <caption>Zwei Etappen meines bisherigen Weges</caption>
-          <thead>
-            <tr>
-              <th scope="col">Jahr</th>
-              <th scope="col">Station</th>
-              <th scope="col">Ort</th>
-              <th scope="col">Stichwort</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>2024</td><td>Abitur</td><td>Wittlich</td><td>Schulabschluss</td></tr>
-            <tr><td>Seit 2024</td><td>Geoinformatik und Vermessung</td><td>Mainz</td><td>Studium</td></tr>
-          </tbody>
-        </table>
+    <section id="panel-news" class="tab-panel" role="tabpanel" aria-labelledby="tab-news">
+      <div class="news-list" id="news-list" aria-live="polite">
+        <p class="news-status">News werden geladen …</p>
       </div>
     </section>
 
-    <section aria-labelledby="inspiration-heading">
-      <h2 id="inspiration-heading">Meine Links</h2>
-      <div class="gallery">
-        <article class="card">
-          <a href="https://github.com/" aria-label="GitHub-Profil von Nele öffnen" target="_blank" rel="noopener noreferrer">
-            <svg class="card-image" role="img" aria-labelledby="github-image-title" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
-              <title id="github-image-title">Kartenansicht als Symbol für Geodaten und digitale Projekte</title>
-              <rect width="600" height="400" fill="#e4f2eb"/>
-              <path d="M0 70h600M0 155h600M0 245h600M0 330h600M90 0v400m120-400v400m120-400v400m120-400v400m100-400v400" stroke="#c4ded0" stroke-width="2"/>
-              <path d="M-20 302c95-98 143-67 223-121S348 73 620 134" fill="none" stroke="#fffdf8" stroke-width="34"/>
-              <path d="M-20 302c95-98 143-67 223-121S348 73 620 134" fill="none" stroke="#20b581" stroke-width="5"/>
-              <path d="M397 129c0-33 26-59 59-59s59 26 59 59c0 43-59 105-59 105s-59-62-59-105" fill="#176b57"/>
-              <circle cx="456" cy="128" r="19" fill="#fffdf8"/>
-            </svg>
-            <div class="card-copy">
-              <h3>GitHub</h3>
-              <p>Meine Projekte und Ideen.</p>
-            </div>
-          </a>
-        </article>
+    <section id="panel-projects" class="tab-panel" role="tabpanel" aria-labelledby="tab-projects">
+          <div class="gallery">
+            <article class="card">
+              <a href="https://github.com/" aria-label="GitHub-Profil öffnen" target="_blank" rel="noopener noreferrer">
+                <svg class="card-image" role="img" aria-labelledby="github-image-title" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                  <title id="github-image-title">Web-Map Projekt Illustration</title>
+                  <rect width="600" height="400" fill="#e4f2eb"/>
+                  <path d="M0 70h600M0 155h600M0 245h600M0 330h600M90 0v400m120-400v400m120-400v400m120-400v400m100-400v400" stroke="#c4ded0" stroke-width="2"/>
+                  <path d="M-20 302c95-98 143-67 223-121S348 73 620 134" fill="none" stroke="#fffdf8" stroke-width="34"/>
+                  <path d="M-20 302c95-98 143-67 223-121S348 73 620 134" fill="none" stroke="#20b581" stroke-width="5"/>
+                  <path d="M397 129c0-33 26-59 59-59s59 26 59 59c0 43-59 105-59 105s-59-62-59-105" fill="#176b57"/>
+                  <circle cx="456" cy="128" r="19" fill="#fffdf8"/>
+                </svg>
+                <div class="card-copy">
+                  <h3>Web-Map-Projekt</h3>
+                  <p>Interaktive Karten und räumliche Analysen.</p>
+                </div>
+              </a>
+            </article>
 
-        <article class="card">
-          <a href="https://example.com/portfolio" aria-label="Portfolio von Nele öffnen" target="_blank" rel="noopener noreferrer">
-            <svg class="card-image" role="img" aria-labelledby="portfolio-image-title" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
-              <title id="portfolio-image-title">Vermessungsgerät auf einer Karte</title>
-              <rect width="600" height="400" fill="#edf1e7"/>
-              <path d="M0 85c100-40 166 45 255 8s170-47 345 13M-20 145c105-42 173 46 274 6s201-52 370 13M-20 216c105-42 173 46 274 6s201-52 370 13M-20 286c105-42 173 46 274 6s201-52 370 13M-20 352c105-42 173 46 274 6s201-52 370 13" fill="none" stroke="#c4d4b9" stroke-width="3"/>
-              <path d="M245 248 175 400m180-152 70 152m-180-152 5 152m90-152-5 152" stroke="#647a6b" stroke-width="7"/>
-              <path d="M226 127h120l-14 96h-92z" fill="#176b57"/>
-              <path d="M239 145h94v51h-94z" fill="#d5eee1"/>
-              <circle cx="286" cy="170" r="15" fill="#20b581"/>
-              <path d="M286 170 400 95" stroke="#176b57" stroke-width="4" stroke-dasharray="8 8"/>
-            </svg>
-            <div class="card-copy">
-              <h3>Portfolio</h3>
-              <p>Eine Auswahl meiner Arbeiten.</p>
-            </div>
-          </a>
-        </article>
+            <article class="card">
+              <a href="https://example.com/portfolio" aria-label="Portfolio öffnen" target="_blank" rel="noopener noreferrer">
+                <svg class="card-image" role="img" aria-labelledby="portfolio-image-title" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                  <title id="portfolio-image-title">Portfolio Visualisierung</title>
+                  <rect width="600" height="400" fill="#edf1e7"/>
+                  <path d="M0 85c100-40 166 45 255 8s170-47 345 13M-20 145c105-42 173 46 274 6s201-52 370 13M-20 216c105-42 173 46 274 6s201-52 370 13M-20 286c105-42 173 46 274 6s201-52 370 13M-20 352c105-42 173 46 274 6s201-52 370 13" fill="none" stroke="#c4d4b9" stroke-width="3"/>
+                  <path d="M245 248 175 400m180-152 70 152m-180-152 5 152m90-152-5 152" stroke="#647a6b" stroke-width="7"/>
+                  <path d="M226 127h120l-14 96h-92z" fill="#176b57"/>
+                  <path d="M239 145h94v51h-94z" fill="#d5eee1"/>
+                  <circle cx="286" cy="170" r="15" fill="#20b581"/>
+                  <path d="M286 170 400 95" stroke="#176b57" stroke-width="4" stroke-dasharray="8 8"/>
+                </svg>
+                <div class="card-copy">
+                  <h3>Portfolio</h3>
+                  <p>Eine Auswahl meiner digitalen Arbeiten.</p>
+                </div>
+              </a>
+            </article>
 
-        <article class="card">
-          <a href="https://example.com/fotoblog" aria-label="Fotoblog von Nele öffnen" target="_blank" rel="noopener noreferrer">
-            <svg class="card-image" role="img" aria-labelledby="fotoblog-image-title" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
-              <title id="fotoblog-image-title">Illustration der Mainzer Altstadt am Rhein</title>
-              <rect width="600" height="400" fill="#dceef0"/>
-              <circle cx="478" cy="82" r="39" fill="#f1d68c"/>
-              <path d="M0 260h600v140H0z" fill="#72b8b5"/>
-              <path d="M0 300c87-34 166 32 251 0s168-29 349 6v94H0z" fill="#4d9997"/>
-              <path d="M0 251h600v24H0z" fill="#d9c8ad"/>
-              <path d="M73 252V165h42v87m2-56 27-22 27 22v56m0 0v-85h59v85m16 0V156h42v96m8 0V186h39v66" fill="#d98b71"/>
-              <path d="M272 252V123h57V82h31v41h57v129z" fill="#bd715f"/>
-              <path d="M292 123V91h17v32m31 0V91h17v32m-57 46h17v25h-17zm40 0h17v25h-17zm-40 42h17v25h-17zm40 0h17v25h-17z" fill="#f3e5cc"/>
-              <path d="M455 252v-62h30v62m-8-62v-30h8v30m17 62v-78h28v78" fill="#e3a27e"/>
-              <path d="M40 252v-42h24v42m420 0v-33h23v33" fill="#f3e5cc"/>
-              <path d="M0 335c100-18 154 17 251 0s208-20 349 3" fill="none" stroke="#d9f0e9" stroke-width="5"/>
-            </svg>
-            <div class="card-copy">
-              <h3>Fotoblog</h3>
-              <p>Momente und Motive aus meinem Alltag.</p>
-            </div>
-          </a>
-        </article>
-      </div>
+            <article class="card">
+              <a href="https://example.com/fotoblog" aria-label="Foto-Blog öffnen" target="_blank" rel="noopener noreferrer">
+                <svg class="card-image" role="img" aria-labelledby="fotoblog-image-title" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                  <title id="fotoblog-image-title">Erlebnis-Visualisierung</title>
+                  <rect width="600" height="400" fill="#dceef0"/>
+                  <circle cx="478" cy="82" r="39" fill="#f1d68c"/>
+                  <path d="M0 260h600v140H0z" fill="#72b8b5"/>
+                  <path d="M0 300c87-34 166 32 251 0s168-29 349 6v94H0z" fill="#4d9997"/>
+                  <path d="M0 251h600v24H0z" fill="#d9c8ad"/>
+                  <path d="M73 252V165h42v87m2-56 27-22 27 22v56m0 0v-85h59v85m16 0V156h42v96m8 0V186h39v66" fill="#d98b71"/>
+                  <path d="M272 252V123h57V82h31v41h57v129z" fill="#bd715f"/>
+                  <path d="M292 123V91h17v32m31 0V91h17v32m-57 46h17v25h-17zm40 0h17v25h-17zm-40 42h17v25h-17zm40 0h17v25h-17z" fill="#f3e5cc"/>
+                  <path d="M455 252v-62h30v62m-8-62v-30h8v30m17 62v-78h28v78" fill="#e3a27e"/>
+                  <path d="M40 252v-42h24v42m420 0v-33h23v33" fill="#f3e5cc"/>
+                  <path d="M0 335c100-18 154 17 251 0s208-20 349 3" fill="none" stroke="#d9f0e9" stroke-width="5"/>
+                </svg>
+                <div class="card-copy">
+                  <h3>Story Map</h3>
+                  <p>Erlebnisse und räumliche Erinnerungen visuell erzählt.</p>
+                </div>
+              </a>
+            </article>
+          </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="page">© 2026 Nele · Mit Neugier gemacht.</div>
   </footer>
+
+  <script>
+    const body = document.body;
+    const themeToggle = document.querySelector('.theme-toggle');
+    const themeLabel = document.querySelector('.toggle-label');
+    const themeIcon = document.querySelector('.toggle-icon');
+
+    function setTheme(theme) {
+      body.dataset.theme = theme;
+      const isDark = theme === 'dark';
+      themeToggle.setAttribute('aria-pressed', String(isDark));
+      themeToggle.setAttribute('aria-label', isDark ? 'Zum Hellmodus wechseln' : 'Zum Dunkelmodus wechseln');
+      themeLabel.textContent = isDark ? 'Dark' : 'Light';
+      themeIcon.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('theme', theme);
+    }
+
+    const savedTheme = localStorage.getItem('theme');
+    setTheme(savedTheme === 'light' ? 'light' : 'dark');
+
+    themeToggle.addEventListener('click', () => {
+      const nextTheme = body.dataset.theme === 'dark' ? 'light' : 'dark';
+      setTheme(nextTheme);
+    });
+
+    const tabs = document.querySelectorAll('[role="tab"]');
+    const panels = document.querySelectorAll('[role="tabpanel"]');
+    const newsList = document.querySelector('#news-list');
+
+    function formatNewsDate(value) {
+      const date = new Date(`${value}T00:00:00`);
+      return Number.isNaN(date.getTime())
+        ? value
+        : new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' }).format(date);
+    }
+
+    function renderNews(news) {
+      if (!Array.isArray(news)) {
+        throw new TypeError('Die News-Datei muss ein JSON-Array enthalten.');
+      }
+
+      const cards = news.map((item) => {
+        if (
+          !item
+          || typeof item.date !== 'string'
+          || typeof item.title !== 'string'
+          || typeof item.summary !== 'string'
+          || typeof item.image !== 'string'
+        ) {
+          throw new TypeError('Jede News-Meldung benötigt date, title, summary und image als Text.');
+        }
+
+        const article = document.createElement('article');
+        article.className = 'news-card';
+
+        const image = document.createElement('img');
+        image.className = 'news-image';
+        image.src = item.image;
+        image.alt = '';
+        image.loading = 'lazy';
+
+        const copy = document.createElement('div');
+        copy.className = 'news-copy';
+
+        const date = document.createElement('time');
+        date.className = 'news-date';
+        date.dateTime = item.date;
+        date.textContent = formatNewsDate(item.date);
+
+        const title = document.createElement('h3');
+        title.textContent = item.title;
+
+        const summary = document.createElement('p');
+        summary.textContent = item.summary;
+
+        copy.append(date, title, summary);
+        article.append(image, copy);
+        return article;
+      });
+
+      newsList.replaceChildren(...cards);
+    }
+
+    async function loadNews() {
+      try {
+        const response = await fetch('assets/news.json');
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        renderNews(await response.json());
+      } catch (error) {
+        console.error('Die News konnten nicht geladen werden:', error);
+        const status = document.createElement('p');
+        status.className = 'news-status';
+        status.textContent = 'Die News konnten nicht geladen werden. Bitte prüfe assets/news.json und öffne die Seite über einen Webserver.';
+        newsList.replaceChildren(status);
+      }
+    }
+
+    loadNews();
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+
+        tabs.forEach((item) => {
+          const isActive = item === tab;
+          item.classList.toggle('is-active', isActive);
+          item.setAttribute('aria-selected', String(isActive));
+        });
+
+        panels.forEach((panel) => {
+          const isActive = panel.id === `panel-${target}`;
+          panel.classList.toggle('is-active', isActive);
+        });
+      });
+
+      tab.addEventListener('keydown', (event) => {
+        const currentIndex = Array.from(tabs).indexOf(tab);
+        let nextIndex = currentIndex;
+
+        if (event.key === 'ArrowRight') {
+          nextIndex = (currentIndex + 1) % tabs.length;
+        } else if (event.key === 'ArrowLeft') {
+          nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+        } else if (event.key === 'Home') {
+          nextIndex = 0;
+        } else if (event.key === 'End') {
+          nextIndex = tabs.length - 1;
+        } else {
+          return;
+        }
+
+        event.preventDefault();
+        tabs[nextIndex].focus();
+        tabs[nextIndex].click();
+      });
+    });
+  </script>
 </body>
 </html>
