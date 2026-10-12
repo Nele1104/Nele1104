@@ -449,6 +449,14 @@
       font-size: 0.92rem;
     }
 
+    .project-note {
+      display: block;
+      margin-top: 0.75rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
     .about-grid,
     .focus-grid,
     .interest-list,
@@ -632,6 +640,11 @@
       transition: transform 180ms ease, background-color 180ms ease;
     }
 
+    .contact-links a:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+
     .contact-links a:hover {
       transform: translateY(-3px);
       background: var(--surface-strong);
@@ -641,6 +654,12 @@
       width: 1.8rem;
       height: 1.8rem;
       fill: currentColor;
+    }
+
+    .contact-note {
+      margin-top: 0.4rem;
+      color: var(--muted);
+      font-size: 0.8rem;
     }
 
     @media (max-width: 720px) {
@@ -713,8 +732,10 @@
 
       .tab-panel,
       .tab-indicator,
+      .theme-toggle,
       .card,
       .news-card,
+      .contact-links a,
       tbody tr {
         transition: none;
         animation: none;
@@ -833,6 +854,7 @@
                 <div class="card-copy">
                   <h3>Portfolio</h3>
                   <p>Eine Auswahl meiner digitalen Arbeiten.</p>
+                  <span class="project-note">Projektlink fehlt – eigene URL ergänzen.</span>
                 </div>
               </div>
             </article>
@@ -856,6 +878,7 @@
                 <div class="card-copy">
                   <h3>Story Map</h3>
                   <p>Erlebnisse und räumliche Erinnerungen visuell erzählt.</p>
+                  <span class="project-note">Projektlink fehlt – eigene URL ergänzen.</span>
                 </div>
               </div>
             </article>
@@ -864,13 +887,28 @@
   </main>
 
   <footer class="site-footer">
-    <div class="page">© 2026 Nele · Mit Neugier gemacht.</div>
+    <div class="page">
+      © 2026 Nele · Mit Neugier gemacht.
+      <p class="contact-note" id="kontakt-angaben">
+        E-Mail-Adresse und LinkedIn-Profil bitte noch mit den eigenen Angaben verknüpfen.
+      </p>
+    </div>
   </footer>
 
   <nav class="contact-links" aria-label="Kontakt und externe Links">
     <a href="https://github.com/Nele1104/Nele1104" target="_blank" rel="noopener noreferrer" aria-label="GitHub-Repository Nele1104 öffnen">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.1c-3.1.68-3.76-1.32-3.76-1.32-.5-1.3-1.24-1.65-1.24-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 1.71 2.62 1.22 3.26.93.1-.73.39-1.22.71-1.5-2.48-.28-5.09-1.24-5.09-5.51 0-1.22.44-2.22 1.16-3-.12-.29-.5-1.42.11-2.96 0 0 .95-.3 3.05 1.15a10.6 10.6 0 0 1 5.55 0c2.1-1.45 3.05-1.15 3.05-1.15.61 1.54.23 2.67.11 2.96.72.78 1.16 1.78 1.16 3 0 4.28-2.61 5.23-5.1 5.5.4.35.76 1.02.76 2.06v3.12c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"/>
+      </svg>
+    </a>
+    <a href="#kontakt-angaben" aria-label="E-Mail-Adresse fehlt – Platzhalter, bitte eigene Adresse ergänzen" title="Platzhalter: eigene E-Mail-Adresse ergänzen">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 5.5h18a1.5 1.5 0 0 1 1.5 1.5v10a1.5 1.5 0 0 1-1.5 1.5H3A1.5 1.5 0 0 1 1.5 17V7A1.5 1.5 0 0 1 3 5.5Zm9 7.1L20.1 7H3.9l8.1 5.6Zm0 1.8L3 8.1V17h18V8.1L12 14.4Z"/>
+      </svg>
+    </a>
+    <a href="#kontakt-angaben" aria-label="LinkedIn-Profil fehlt – Platzhalter, bitte eigene Profil-URL ergänzen" title="Platzhalter: eigenes LinkedIn-Profil ergänzen">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5.1 3.5a2.1 2.1 0 1 1 0 4.2 2.1 2.1 0 0 1 0-4.2ZM3.3 9h3.6v11.5H3.3V9Zm5.8 0h3.4v1.6h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.3h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.1V9Z"/>
       </svg>
     </a>
   </nav>
@@ -888,10 +926,19 @@
       themeToggle.setAttribute('aria-label', isDark ? 'Zum Hellmodus wechseln' : 'Zum Dunkelmodus wechseln');
       themeLabel.textContent = isDark ? 'Dark' : 'Light';
       themeIcon.textContent = isDark ? '☀️' : '🌙';
-      localStorage.setItem('theme', theme);
+      try {
+        localStorage.setItem('theme', theme);
+      } catch (error) {
+        console.warn('Die Theme-Auswahl konnte nicht gespeichert werden:', error);
+      }
     }
 
-    const savedTheme = localStorage.getItem('theme');
+    let savedTheme = null;
+    try {
+      savedTheme = localStorage.getItem('theme');
+    } catch (error) {
+      console.warn('Die gespeicherte Theme-Auswahl konnte nicht gelesen werden:', error);
+    }
     setTheme(savedTheme === 'light' ? 'light' : 'dark');
 
     themeToggle.addEventListener('click', () => {
@@ -924,7 +971,7 @@
         throw new TypeError('Die News-Datei muss ein JSON-Array enthalten.');
       }
 
-      const cards = news.map((item) => {
+      news.forEach((item) => {
         if (
           !item
           || typeof item.date !== 'string'
@@ -932,10 +979,20 @@
           || typeof item.summary !== 'string'
           || typeof item.image !== 'string'
           || (item.link !== undefined && typeof item.link !== 'string')
+          || !/^\d{4}-\d{2}-\d{2}$/.test(item.date)
+          || Number.isNaN(Date.parse(`${item.date}T00:00:00`))
         ) {
-          throw new TypeError('Jede News-Meldung benötigt date, title, summary und image als Text; link ist optional.');
+          throw new TypeError('Jede News-Meldung benötigt ein gültiges date im Format JJJJ-MM-TT sowie title, summary und image als Text; link ist optional.');
         }
+      });
 
+      const sortedNews = [...news].sort((first, second) => {
+        const firstDate = Date.parse(`${first.date}T00:00:00`);
+        const secondDate = Date.parse(`${second.date}T00:00:00`);
+        return secondDate - firstDate;
+      });
+
+      const cards = sortedNews.map((item) => {
         const article = document.createElement('article');
         article.className = 'news-card';
 
@@ -1020,11 +1077,6 @@
         });
       });
 
-      window.addEventListener('resize', () => {
-        const activeTab = document.querySelector('[role="tab"][aria-selected="true"]');
-        moveTabIndicator(activeTab);
-      });
-
       tab.addEventListener('keydown', (event) => {
         const currentIndex = Array.from(tabs).indexOf(tab);
         let nextIndex = currentIndex;
@@ -1045,6 +1097,11 @@
         tabs[nextIndex].focus();
         tabs[nextIndex].click();
       });
+    });
+
+    window.addEventListener('resize', () => {
+      const activeTab = document.querySelector('[role="tab"][aria-selected="true"]');
+      moveTabIndicator(activeTab);
     });
   </script>
 </body>
