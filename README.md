@@ -25,8 +25,7 @@ Task **Website lokal starten** ausführen und anschließend
   `link`-Feld macht eine Karte anklickbar, wenn eine echte Zieladresse
   eingetragen ist.
 
-## Veröffentlichung
+## Live-URL
 
-Die Seite ist derzeit noch nicht öffentlich veröffentlicht. Für die Abgabe
-muss GitHub Pages oder ein anderer Hosting-Anbieter aktiviert und die
-tatsächliche Live-URL anschließend hier eingetragen werden.
+Die Website ist über GitHub Pages öffentlich erreichbar:
+[https://nele1104.github.io/Nele1104/](https://nele1104.github.io/Nele1104/)
