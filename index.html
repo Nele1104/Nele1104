@@ -361,6 +361,11 @@
       background: rgba(255, 255, 255, 0.1);
     }
 
+    .tab:focus-visible {
+      outline: 2px solid #ffe066;
+      outline-offset: -2px;
+    }
+
     .tab-panel {
       display: none;
       animation: fadeUp 260ms ease both;
@@ -507,13 +512,14 @@
     }
 
     .news-list {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       margin-top: 1.5rem;
     }
 
     .news-card {
+      min-width: 0;
       display: grid;
-      grid-template-columns: minmax(250px, 34%) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 34%) minmax(0, 1fr);
       align-items: center;
       gap: clamp(1.5rem, 4vw, 2.5rem);
       padding: 0 0 2rem;
@@ -561,6 +567,7 @@
     }
 
     .news-copy {
+      min-width: 0;
       padding: 0.5rem 0;
     }
 
@@ -574,6 +581,7 @@
 
     .news-title-link {
       color: inherit;
+      overflow-wrap: anywhere;
       text-decoration-color: var(--accent);
       text-decoration-thickness: 0.08em;
       text-underline-offset: 0.12em;
@@ -659,7 +667,8 @@
       gap: 0.65rem;
     }
 
-    .contact-links a {
+    .contact-links a,
+    .contact-links .contact-placeholder {
       display: grid;
       width: 3.4rem;
       height: 3.4rem;
@@ -682,6 +691,10 @@
       background: var(--surface-strong);
     }
 
+    .contact-links .contact-placeholder {
+      opacity: 0.6;
+    }
+
     .contact-links svg {
       width: 1.8rem;
       height: 1.8rem;
@@ -699,7 +712,7 @@
       .focus-grid,
       .interest-list,
       .news-list {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
       }
     }
 
@@ -750,6 +763,25 @@
 
       .news-copy h3 {
         font-size: 1.55rem;
+      }
+
+      .contact-links {
+        display: flex;
+        gap: 0.45rem;
+        right: 0.75rem;
+        bottom: 0.75rem;
+      }
+
+      .contact-links a,
+      .contact-links .contact-placeholder {
+        width: 2.8rem;
+        height: 2.8rem;
+        border-radius: 0.75rem;
+      }
+
+      .contact-links svg {
+        width: 1.5rem;
+        height: 1.5rem;
       }
 
       main {
@@ -922,29 +954,29 @@
   <footer class="site-footer">
     <div class="page">
       © 2026 Nele · Mit Neugier gemacht.
-      <p class="contact-note" id="kontakt-angaben">
-        E-Mail-Adresse und LinkedIn-Profil bitte noch mit den eigenen Angaben verknüpfen.
+      <p class="contact-note">
+        E-Mail-Adresse und LinkedIn-Profil sind noch zu ergänzen.
       </p>
     </div>
   </footer>
 
-  <nav class="contact-links" aria-label="Kontakt und externe Links">
+  <div class="contact-links" role="group" aria-label="Kontakt und externe Links">
     <a href="https://github.com/Nele1104/Nele1104" target="_blank" rel="noopener noreferrer" aria-label="GitHub-Repository Nele1104 öffnen">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.1c-3.1.68-3.76-1.32-3.76-1.32-.5-1.3-1.24-1.65-1.24-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 1.71 2.62 1.22 3.26.93.1-.73.39-1.22.71-1.5-2.48-.28-5.09-1.24-5.09-5.51 0-1.22.44-2.22 1.16-3-.12-.29-.5-1.42.11-2.96 0 0 .95-.3 3.05 1.15a10.6 10.6 0 0 1 5.55 0c2.1-1.45 3.05-1.15 3.05-1.15.61 1.54.23 2.67.11 2.96.72.78 1.16 1.78 1.16 3 0 4.28-2.61 5.23-5.1 5.5.4.35.76 1.02.76 2.06v3.12c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"/>
       </svg>
     </a>
-    <a href="#kontakt-angaben" aria-label="E-Mail-Adresse fehlt – Platzhalter, bitte eigene Adresse ergänzen" title="Platzhalter: eigene E-Mail-Adresse ergänzen">
+    <span class="contact-placeholder" role="img" aria-label="E-Mail-Adresse fehlt; Kontaktangabe noch ergänzen" title="E-Mail-Adresse noch ergänzen">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M3 5.5h18a1.5 1.5 0 0 1 1.5 1.5v10a1.5 1.5 0 0 1-1.5 1.5H3A1.5 1.5 0 0 1 1.5 17V7A1.5 1.5 0 0 1 3 5.5Zm9 7.1L20.1 7H3.9l8.1 5.6Zm0 1.8L3 8.1V17h18V8.1L12 14.4Z"/>
       </svg>
-    </a>
-    <a href="#kontakt-angaben" aria-label="LinkedIn-Profil fehlt – Platzhalter, bitte eigene Profil-URL ergänzen" title="Platzhalter: eigenes LinkedIn-Profil ergänzen">
+    </span>
+    <span class="contact-placeholder" role="img" aria-label="LinkedIn-Profil fehlt; Profil-URL noch ergänzen" title="LinkedIn-Profil noch ergänzen">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M5.1 3.5a2.1 2.1 0 1 1 0 4.2 2.1 2.1 0 0 1 0-4.2ZM3.3 9h3.6v11.5H3.3V9Zm5.8 0h3.4v1.6h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.3h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.1V9Z"/>
       </svg>
-    </a>
-  </nav>
+    </span>
+  </div>
 
   <script>
     const body = document.body;
@@ -989,14 +1021,27 @@
       tabIndicator.style.transform = `translateX(${tab.offsetLeft}px)`;
     }
 
-    const selectedTab = document.querySelector('[role="tab"][aria-selected="true"]');
-    moveTabIndicator(selectedTab);
+    function activateTab(tab) {
+      const target = tab.dataset.tab;
+      tabs.forEach((item) => {
+        const isActive = item === tab;
+        item.classList.toggle('is-active', isActive);
+        item.setAttribute('aria-selected', String(isActive));
+        item.tabIndex = isActive ? 0 : -1;
+      });
+      panels.forEach((panel) => {
+        const isActive = panel.id === `panel-${target}`;
+        panel.classList.toggle('is-active', isActive);
+        panel.hidden = !isActive;
+      });
+      moveTabIndicator(tab);
+    }
 
     function formatNewsDate(value) {
-      const date = new Date(`${value}T00:00:00`);
+      const date = new Date(`${value}T00:00:00Z`);
       return Number.isNaN(date.getTime())
         ? value
-        : new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' }).format(date);
+        : new Intl.DateTimeFormat('de-DE', { dateStyle: 'long', timeZone: 'UTC' }).format(date);
     }
 
     function renderNews(news) {
@@ -1004,24 +1049,42 @@
         throw new TypeError('Die News-Datei muss ein JSON-Array enthalten.');
       }
 
+      const ids = new Set();
       news.forEach((item) => {
         if (
           !item
+          || typeof item.id !== 'string'
+          || !/^[a-z0-9-]+$/.test(item.id)
           || typeof item.date !== 'string'
+          || !item.title?.trim()
           || typeof item.title !== 'string'
+          || !item.summary?.trim()
           || typeof item.summary !== 'string'
+          || !item.image?.trim()
           || typeof item.image !== 'string'
-          || (item.link !== undefined && typeof item.link !== 'string')
+          || typeof item.link !== 'string'
+          || !item.link.trim()
           || !/^\d{4}-\d{2}-\d{2}$/.test(item.date)
-          || Number.isNaN(Date.parse(`${item.date}T00:00:00`))
         ) {
-          throw new TypeError('Jede News-Meldung benötigt ein gültiges date im Format JJJJ-MM-TT sowie title, summary und image als Text; link ist optional.');
+          throw new TypeError('Jede News-Meldung benötigt eine eindeutige id, ein gültiges date (JJJJ-MM-TT), title, summary, image und link.');
+        }
+        const parsedDate = new Date(`${item.date}T00:00:00Z`);
+        if (Number.isNaN(parsedDate.getTime()) || parsedDate.toISOString().slice(0, 10) !== item.date) {
+          throw new TypeError(`Ungültiges Datum in News-Meldung "${item.id}".`);
+        }
+        if (ids.has(item.id)) {
+          throw new TypeError(`Die News-ID "${item.id}" ist doppelt vergeben.`);
+        }
+        ids.add(item.id);
+        const destination = new URL(item.link, document.baseURI);
+        if (!['http:', 'https:'].includes(destination.protocol)) {
+          throw new TypeError(`Der Link der News-Meldung "${item.id}" muss HTTP oder HTTPS verwenden.`);
         }
       });
 
       const sortedNews = [...news].sort((first, second) => {
-        const firstDate = Date.parse(`${first.date}T00:00:00`);
-        const secondDate = Date.parse(`${second.date}T00:00:00`);
+        const firstDate = Date.parse(`${first.date}T00:00:00Z`);
+        const secondDate = Date.parse(`${second.date}T00:00:00Z`);
         return secondDate - firstDate;
       });
 
@@ -1036,26 +1099,18 @@
         image.loading = 'lazy';
 
         let imageContent = image;
-        let destination = null;
-        if (item.link && item.link.trim()) {
-          destination = new URL(item.link.trim(), document.baseURI);
-          if (!['http:', 'https:'].includes(destination.protocol)) {
-            throw new TypeError('News-Links müssen HTTP- oder HTTPS-Adressen sein.');
-          }
-        }
+        const destination = new URL(item.link, document.baseURI);
 
-        if (destination) {
-          const imageLink = document.createElement('a');
-          imageLink.className = 'news-image-link';
-          imageLink.href = destination.href;
-          imageLink.setAttribute('aria-label', `Meldung öffnen: ${item.title}`);
-          if (destination.origin !== window.location.origin) {
-            imageLink.target = '_blank';
-            imageLink.rel = 'noopener noreferrer';
-          }
-          imageLink.append(image);
-          imageContent = imageLink;
+        const imageLink = document.createElement('a');
+        imageLink.className = 'news-image-link';
+        imageLink.href = destination.href;
+        imageLink.setAttribute('aria-label', `Meldung öffnen: ${item.title}`);
+        if (destination.origin !== window.location.origin) {
+          imageLink.target = '_blank';
+          imageLink.rel = 'noopener noreferrer';
         }
+        imageLink.append(image);
+        imageContent = imageLink;
 
         const copy = document.createElement('div');
         copy.className = 'news-copy';
@@ -1066,35 +1121,29 @@
         date.textContent = formatNewsDate(item.date);
 
         const title = document.createElement('h3');
-        if (destination) {
-          const titleLink = document.createElement('a');
-          titleLink.className = 'news-title-link';
-          titleLink.href = destination.href;
-          titleLink.textContent = item.title;
-          if (destination.origin !== window.location.origin) {
-            titleLink.target = '_blank';
-            titleLink.rel = 'noopener noreferrer';
-          }
-          title.append(titleLink);
-        } else {
-          title.textContent = item.title;
+        const titleLink = document.createElement('a');
+        titleLink.className = 'news-title-link';
+        titleLink.href = destination.href;
+        titleLink.textContent = item.title;
+        if (destination.origin !== window.location.origin) {
+          titleLink.target = '_blank';
+          titleLink.rel = 'noopener noreferrer';
         }
+        title.append(titleLink);
 
         const summary = document.createElement('p');
         summary.textContent = item.summary;
 
         copy.append(date, title, summary);
-        if (destination) {
-          const link = document.createElement('a');
-          link.className = 'news-read-more';
-          link.href = destination.href;
-          link.textContent = 'Mehr erfahren';
-          if (destination.origin !== window.location.origin) {
-            link.target = '_blank';
-            link.rel = 'noopener noreferrer';
-          }
-          copy.append(link);
+        const link = document.createElement('a');
+        link.className = 'news-read-more';
+        link.href = destination.href;
+        link.textContent = 'Mehr erfahren';
+        if (destination.origin !== window.location.origin) {
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
         }
+        copy.append(link);
 
         article.append(imageContent, copy);
         return article;
@@ -1115,7 +1164,7 @@
         console.error('Die News konnten nicht geladen werden:', error);
         const status = document.createElement('p');
         status.className = 'news-status';
-        status.textContent = 'Die News konnten nicht geladen werden. Bitte prüfe assets/news.json und öffne die Seite über einen Webserver.';
+        status.textContent = `Die News konnten nicht geladen werden. Bitte prüfe assets/news.json und öffne die Seite über einen Webserver. Details: ${error.message}`;
         newsList.replaceChildren(status);
       }
     }
@@ -1124,19 +1173,7 @@
 
     tabs.forEach((tab) => {
       tab.addEventListener('click', () => {
-        const target = tab.dataset.tab;
-
-        tabs.forEach((item) => {
-          const isActive = item === tab;
-          item.classList.toggle('is-active', isActive);
-          item.setAttribute('aria-selected', String(isActive));
-        });
-        moveTabIndicator(tab);
-
-        panels.forEach((panel) => {
-          const isActive = panel.id === `panel-${target}`;
-          panel.classList.toggle('is-active', isActive);
-        });
+        activateTab(tab);
       });
 
       tab.addEventListener('keydown', (event) => {
@@ -1160,6 +1197,18 @@
         tabs[nextIndex].click();
       });
     });
+
+    function activateTabFromHash() {
+      if (window.location.hash === '#panel-news') {
+        activateTab(document.querySelector('#tab-news'));
+      }
+    }
+
+    activateTabFromHash();
+    if (!window.location.hash) {
+      activateTab(document.querySelector('[role="tab"][aria-selected="true"]'));
+    }
+    window.addEventListener('hashchange', activateTabFromHash);
 
     window.addEventListener('resize', () => {
       const activeTab = document.querySelector('[role="tab"][aria-selected="true"]');

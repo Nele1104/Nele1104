@@ -1,31 +1,50 @@
 # Übung 2 – Modernes Frontend
 
-## Lokal starten
+Persönliche Website von Nele für die Übung im Modul Geoinformatik 2 an der
+Hochschule Mainz. Die Website gliedert Inhalte in About, News und Projects
+und unterstützt Light-/Dark-Mode, responsive Layouts und dynamische News.
 
-Die News werden per `fetch()` aus `assets/news.json` geladen. Deshalb muss die
-Website über HTTP statt direkt über `file://` geöffnet werden. In VS Code den
-Task **Website lokal starten** ausführen und anschließend
-[http://localhost:8000](http://localhost:8000) öffnen.
+## Technologien
+
+- HTML5 und CSS3 für Struktur und Gestaltung
+- JavaScript für Tabs, Theme-Wechsel und dynamische Inhalte
+- JSON als Datenquelle für die News
+- GitHub Pages für die statische Veröffentlichung
+
+## Lokal testen
+
+`fetch()` kann die News-Datei nicht zuverlässig über `file://` laden. In VS Code
+den Task **Website lokal starten** ausführen und
+[http://localhost:8000](http://localhost:8000) öffnen. Alternativ kann ein
+beliebiger lokaler HTTP-Server aus dem Projektordner verwendet werden.
+
+Neue Meldungen kommen als Eintrag in `assets/news.json` hinzu. Jeder Eintrag
+benötigt eine eindeutige `id`, ein Datum im Format `JJJJ-MM-TT`, `title`,
+`summary`, `image` und einen `link`. Für interne Meldungen verweist der Link auf
+`news.html?id=<id>`; die Detailseite liest Titel, Datum, Bild und Kurztext
+ebenfalls aus der JSON-Datei. Die Bilder und IDs müssen im Projekt vorhanden
+beziehungsweise eindeutig sein.
 
 ## Reflexion
 
-- **Light/Night Mode:** CSS-Variablen für die beiden Farbschemata stehen im
-  `<style>`-Block von `index.html`. Die JavaScript-Funktion `setTheme()` setzt
-  das Theme am `<body>` und speichert die Auswahl im `localStorage`.
-- **Klick-Ereignisse:** Der Theme-Button verwendet einen `click`-Eventlistener,
-  der zwischen Light und Dark wechselt. Die Tab-Buttons aktualisieren beim
-  Klick den aktiven Tab und das dazugehörige Panel.
-- **Tabs:** Die Navigation verwendet Buttons mit `role="tab"` innerhalb eines
-  `role="tablist"`. Die jeweiligen Inhaltsbereiche sind Elemente mit
-  `role="tabpanel"` und werden über `aria-controls`/`aria-labelledby`
-  zugeordnet.
-- **News:** `loadNews()` ruft `assets/news.json` mit `fetch()` ab. Die
-  JSON-Einträge werden geprüft und anschließend mit `renderNews()` als
-  Bildkarten mit Bild, Datum, Titel und Kurztext angezeigt. Ein optionales
-  `link`-Feld macht eine Karte anklickbar, wenn eine echte Zieladresse
-  eingetragen ist.
+- **Light-/Dark-Mode:** CSS-Variablen definieren die Farbschemata; `setTheme()`
+  setzt das Theme und speichert es im `localStorage`.
+- **Klick-Ereignisse:** JavaScript-Eventlistener wechseln Themes und Tabs. Die
+  Tabs lassen sich auch per Pfeiltasten sowie Home/End bedienen.
+- **Tabs:** Buttons mit `role="tab"` steuern die zugeordneten
+  `role="tabpanel"`-Bereiche.
+- **News:** `fetch('assets/news.json')` lädt und prüft die Einträge. Sie werden
+  nach Datum absteigend sortiert und sicher mit DOM-Methoden gerendert.
 
-## Live-URL
+## Veröffentlichte Website
 
-Die Website ist über GitHub Pages öffentlich erreichbar:
 [https://nele1104.github.io/Nele1104/](https://nele1104.github.io/Nele1104/)
+
+## GitHub Pages aktivieren oder prüfen
+
+Im Repository auf **Settings → Pages** gehen. Unter **Build and deployment**
+die Veröffentlichung aus dem Branch `main` und dem Ordner `/(root)` auswählen
+und speichern. Nach erfolgreichem Deployment ist die Seite unter der oben
+genannten Adresse erreichbar. Änderungen an HTML-, JSON- und Bilddateien
+werden als statische Dateien veröffentlicht; ein eigener Server ist nicht
+erforderlich.

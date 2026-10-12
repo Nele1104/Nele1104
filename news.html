@@ -103,6 +103,7 @@
     h1 {
       margin: 0.2rem 0 0.5rem;
       font-size: clamp(1.8rem, 5vw, 2.8rem);
+      overflow-wrap: anywhere;
       line-height: 1.15;
     }
 
@@ -138,7 +139,7 @@
   </header>
 
   <main>
-    <a class="back-link" href="index.html">← Zurück zur Website</a>
+    <a class="back-link" href="index.html#panel-news">← Zurück zu den News</a>
     <article id="news-article" aria-live="polite">
       <p class="status">Meldung wird geladen …</p>
     </article>
@@ -157,10 +158,10 @@
     }
 
     function formatDate(value) {
-      const date = new Date(`${value}T00:00:00`);
+      const date = new Date(`${value}T00:00:00Z`);
       return Number.isNaN(date.getTime())
         ? value
-        : new Intl.DateTimeFormat('de-DE', { dateStyle: 'long' }).format(date);
+        : new Intl.DateTimeFormat('de-DE', { dateStyle: 'long', timeZone: 'UTC' }).format(date);
     }
 
     async function loadNewsArticle() {
@@ -175,9 +176,28 @@
         }
 
         const news = await response.json();
+        if (!Array.isArray(news)) {
+          throw new TypeError('Die News-Datei muss ein JSON-Array enthalten.');
+        }
         const item = news.find((entry) => entry.id === id);
         if (!item) {
           throw new Error(`Keine Meldung mit der ID "${id}" gefunden.`);
+        }
+        if (
+          typeof item.date !== 'string'
+          || !/^\d{4}-\d{2}-\d{2}$/.test(item.date)
+          || typeof item.title !== 'string'
+          || !item.title.trim()
+          || typeof item.summary !== 'string'
+          || !item.summary.trim()
+          || typeof item.image !== 'string'
+          || !item.image.trim()
+        ) {
+          throw new TypeError(`Die Meldung "${id}" enthält unvollständige oder ungültige Daten.`);
+        }
+        const parsedDate = new Date(`${item.date}T00:00:00Z`);
+        if (Number.isNaN(parsedDate.getTime()) || parsedDate.toISOString().slice(0, 10) !== item.date) {
+          throw new TypeError(`Die Meldung "${id}" hat ein ungültiges Datum.`);
         }
 
         const eyebrow = document.createElement('p');
@@ -193,8 +213,15 @@
 
         const image = document.createElement('img');
         image.className = 'news-image';
-        image.src = item.image;
+        image.src = new URL(item.image, document.baseURI).href;
         image.alt = item.title;
+        image.addEventListener('error', () => {
+          console.error(`Das Bild "${item.image}" konnte nicht geladen werden.`);
+          const status = document.createElement('p');
+          status.className = 'status';
+          status.textContent = 'Das Bild dieser Meldung konnte nicht geladen werden.';
+          article.replaceChildren(status);
+        }, { once: true });
 
         const summary = document.createElement('p');
         summary.className = 'summary';
@@ -203,10 +230,10 @@
         article.replaceChildren(eyebrow, title, date, image, summary);
         document.title = `${item.title} — Nele`;
       } catch (error) {
-        console.error('Die Meldung konnte nicht geladen werden:', error);
+        console.warn('Die Meldung konnte nicht geladen werden:', error);
         const status = document.createElement('p');
         status.className = 'status';
-        status.textContent = 'Diese Meldung konnte nicht geladen werden. Bitte prüfe den Link und öffne die Website über einen Webserver.';
+        status.textContent = `Diese Meldung konnte nicht geladen werden. Details: ${error.message}`;
         article.replaceChildren(status);
       }
     }
