@@ -701,12 +701,6 @@
       fill: currentColor;
     }
 
-    .contact-note {
-      margin-top: 0.4rem;
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
-
     @media (max-width: 720px) {
       .gallery,
       .focus-grid,
@@ -887,7 +881,7 @@
       <p>Eine Auswahl meiner digitalen Projekte und Web-Maps.</p>
           <div class="gallery">
             <article class="card">
-              <a href="https://github.com/Nele1104/Nele1104" aria-label="GitHub-Repository öffnen" target="_blank" rel="noopener noreferrer">
+              <div class="card-content">
                 <svg class="card-image" role="img" aria-labelledby="github-image-title" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
                   <title id="github-image-title">Web-Map Projekt Illustration</title>
                   <rect width="600" height="400" fill="#e4f2eb"/>
@@ -901,7 +895,7 @@
                   <h3>Web-Map-Projekt</h3>
                   <p>Interaktive Karten und räumliche Analysen.</p>
                 </div>
-              </a>
+              </div>
             </article>
 
             <article class="card">
@@ -954,9 +948,6 @@
   <footer class="site-footer">
     <div class="page">
       © 2026 Nele · Mit Neugier gemacht.
-      <p class="contact-note">
-        E-Mail-Adresse und LinkedIn-Profil sind noch zu ergänzen.
-      </p>
     </div>
   </footer>
 
@@ -1077,8 +1068,12 @@
         }
         ids.add(item.id);
         const destination = new URL(item.link, document.baseURI);
-        if (!['http:', 'https:'].includes(destination.protocol)) {
-          throw new TypeError(`Der Link der News-Meldung "${item.id}" muss HTTP oder HTTPS verwenden.`);
+        const isRelativeLink = !/^[a-z][a-z\d+.-]*:/i.test(item.link) && !item.link.startsWith('//');
+        const isLocalFileLink = document.baseURI.startsWith('file:')
+          && isRelativeLink
+          && destination.protocol === 'file:';
+        if (!['http:', 'https:'].includes(destination.protocol) && !isLocalFileLink) {
+          throw new TypeError(`Der Link der News-Meldung "${item.id}" muss HTTP(S) oder ein relativer interner Link sein.`);
         }
       });
 
