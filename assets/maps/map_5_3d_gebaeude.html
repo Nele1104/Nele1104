@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deutschland – 3D-Gebäude</title>
+
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.137/Build/Cesium/Cesium.js"></script>
+  <link
+    href="https://cesium.com/downloads/cesiumjs/releases/1.137/Build/Cesium/Widgets/widgets.css"
+    rel="stylesheet"
+  >
+
+  <style>
+    html, body, #cesiumContainer {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="cesiumContainer"></div>
+
+  <script>
+    const viewer = new Cesium.Viewer("cesiumContainer", {
+      shadows: false,
+      geocoder: false,
+      baseLayerPicker: false,
+      animation: false,
+      timeline: false
+    });
+
+    // Hintergrundkarte für Deutschland und die Umgebung
+    const osm = new Cesium.OpenStreetMapImageryProvider({
+      url: "https://tile.openstreetmap.org/"
+    });
+
+    viewer.imageryLayers.addImageryProvider(osm);
+
+    // Kamera zunächst auf Mainz ausrichten
+    viewer.camera.flyTo({
+      destination: Cesium.Cartesian3.fromDegrees(
+        8.24, 49.99, 3000
+      ),
+      orientation: {
+        heading: Cesium.Math.toRadians(0),
+        pitch: Cesium.Math.toRadians(-40),
+        roll: 0
+      }
+    });
+
+    // 3D-Gebäude von basemap.de laden
+    async function ladeGebaeude() {
+      try {
+        const tileset = await Cesium.Cesium3DTileset.fromUrl(
+          "https://sgx.geodatenzentrum.de/gdz_basemapde_3d_gebaeude/lod2_4326_null.json",
+          { showOutline: false }
+        );
+
+        viewer.scene.primitives.add(tileset);
+
+        // Dächer und Wände unterschiedlich einfärben
+        tileset.style = new Cesium.Cesium3DTileStyle({
+          color: {
+            conditions: [
+              ["${surface} === 'wall'", "color('#c2c2c2')"],
+              ["${surface} === 'roof'", "color('#ff5c4d')"],
+              ["${surface} === 'bridge'", "color('#999999')"],
+              ["true", "color('#ffffff')"]
+            ]
+          }
+        });
+
+      } catch (error) {
+        console.error("Fehler beim Laden der 3D-Gebäude:", error);
+      }
+    }
+
+    ladeGebaeude();
+  </script>
+</body>
+</html>

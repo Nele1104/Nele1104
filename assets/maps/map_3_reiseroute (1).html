@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_ece1409b3eefab69c712baa78a219fb5 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_ece1409b3eefab69c712baa78a219fb5" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_ece1409b3eefab69c712baa78a219fb5 = L.map(
+                "map_ece1409b3eefab69c712baa78a219fb5",
+                {
+                    center: [56.5, -4.5],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 7,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_85b562edd7fdbbd55e6e740dcc3c1676 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "\u00a9 OpenStreetMap contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+  "referrerPolicy": "origin",
+}
+
+            );
+        
+    
+            tile_layer_85b562edd7fdbbd55e6e740dcc3c1676.addTo(map_ece1409b3eefab69c712baa78a219fb5);
+        
+    
+            var poly_line_859ff2ed9c9d55f28dfa376a730d706f = L.polyline(
+                [[55.9533, -3.1883], [56.1165, -3.9369], [56.8198, -5.1052], [57.4778, -4.2247]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_ece1409b3eefab69c712baa78a219fb5);
+        
+    
+            poly_line_859ff2ed9c9d55f28dfa376a730d706f.bindTooltip(
+                `<div>
+                     Reiseroute durch Schottland
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_a31e59c8ae7a4975d365fd44b709a4b4 = L.marker(
+                [55.9533, -3.1883],
+                {
+}
+            ).addTo(map_ece1409b3eefab69c712baa78a219fb5);
+        
+    
+            var div_icon_4b7ed904ff288b7253c18b5b5a5f9aac = L.divIcon({
+  "html": "\u003cdiv style=\"background:#2563eb;color:white;border:2px solid white;border-radius:50%;width:28px;height:28px;line-height:24px;text-align:center;font-weight:bold;\"\u003e1\u003c/div\u003e",
+  "iconSize": [30, 30],
+  "iconAnchor": [15, 15],
+  "className": "empty",
+});
+        
+    
+            marker_a31e59c8ae7a4975d365fd44b709a4b4.bindTooltip(
+                `<div>
+                     1. Edinburgh
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a31e59c8ae7a4975d365fd44b709a4b4.setIcon(div_icon_4b7ed904ff288b7253c18b5b5a5f9aac);
+            
+    
+            var circle_marker_74ddc3979082da9a3046dcf4d8e939e1 = L.circleMarker(
+                [55.9533, -3.1883],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_ece1409b3eefab69c712baa78a219fb5);
+        
+    
+        var popup_5a407e190447cad452b9e54946a5f956 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_862e522d5484831d8a498dbdc8b435b1 = $(`<div id="html_862e522d5484831d8a498dbdc8b435b1" style="width: 100.0%; height: 100.0%;"><b>Station 1: Edinburgh</b></div>`)[0];
+                popup_5a407e190447cad452b9e54946a5f956.setContent(html_862e522d5484831d8a498dbdc8b435b1);
+            
+        
+
+        circle_marker_74ddc3979082da9a3046dcf4d8e939e1.bindPopup(popup_5a407e190447cad452b9e54946a5f956)
+        ;
+
+        
+    
+    
+            circle_marker_74ddc3979082da9a3046dcf4d8e939e1.bindTooltip(
+                `<div>
+                     Informationen: Edinburgh
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_25a54dd3aab1756253beae86c3090e23 = L.marker(
+                [56.1165, -3.9369],
+                {
+}
+            ).addTo(map_ece1409b3eefab69c712baa78a219fb5);
+        
+    
+            var div_icon_27236fee4ff01e9c114656337cecd68f = L.divIcon({
+  "html": "\u003cdiv style=\"background:#2563eb;color:white;border:2px solid white;border-radius:50%;width:28px;height:28px;line-height:24px;text-align:center;font-weight:bold;\"\u003e2\u003c/div\u003e",
+  "iconSize": [30, 30],
+  "iconAnchor": [15, 15],
+  "className": "empty",
+});
+        
+    
+            marker_25a54dd3aab1756253beae86c3090e23.bindTooltip(
+                `<div>
+                     2. Stirling
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_25a54dd3aab1756253beae86c3090e23.setIcon(div_icon_27236fee4ff01e9c114656337cecd68f);
+            
+    
+            var circle_marker_8fa8f162a0513a9c94628b0fbbdf8a8f = L.circleMarker(
+                [56.1165, -3.9369],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_ece1409b3eefab69c712baa78a219fb5);
+        
+    
+        var popup_a34b823cb50b9afa5ca11d4824ead9c5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_bbfe7ce1fefd3d3b4012eac027222643 = $(`<div id="html_bbfe7ce1fefd3d3b4012eac027222643" style="width: 100.0%; height: 100.0%;"><b>Station 2: Stirling</b></div>`)[0];
+                popup_a34b823cb50b9afa5ca11d4824ead9c5.setContent(html_bbfe7ce1fefd3d3b4012eac027222643);
+            
+        
+
+        circle_marker_8fa8f162a0513a9c94628b0fbbdf8a8f.bindPopup(popup_a34b823cb50b9afa5ca11d4824ead9c5)
+        ;
+
+        
+    
+    
+            circle_marker_8fa8f162a0513a9c94628b0fbbdf8a8f.bindTooltip(
+                `<div>
+                     Informationen: Stirling
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_61149d254352b668e9477f9469d95fcf = L.marker(
+                [56.8198, -5.1052],
+                {
+}
+            ).addTo(map_ece1409b3eefab69c712baa78a219fb5);
+        
+    
+            var div_icon_4fe9f35b4f06272fcc064e1f9c7d7de9 = L.divIcon({
+  "html": "\u003cdiv style=\"background:#2563eb;color:white;border:2px solid white;border-radius:50%;width:28px;height:28px;line-height:24px;text-align:center;font-weight:bold;\"\u003e3\u003c/div\u003e",
+  "iconSize": [30, 30],
+  "iconAnchor": [15, 15],
+  "className": "empty",
+});
+        
+    
+            marker_61149d254352b668e9477f9469d95fcf.bindTooltip(
+                `<div>
+                     3. Fort William
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_61149d254352b668e9477f9469d95fcf.setIcon(div_icon_4fe9f35b4f06272fcc064e1f9c7d7de9);
+            
+    
+            var circle_marker_258696626a4f6fcefb0f016d9bd08ed5 = L.circleMarker(
+                [56.8198, -5.1052],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_ece1409b3eefab69c712baa78a219fb5);
+        
+    
+        var popup_d0a298369a2dba3ccc89c00982522df5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e507022abb9b89f68e6d2b1cde5a23e2 = $(`<div id="html_e507022abb9b89f68e6d2b1cde5a23e2" style="width: 100.0%; height: 100.0%;"><b>Station 3: Fort William</b></div>`)[0];
+                popup_d0a298369a2dba3ccc89c00982522df5.setContent(html_e507022abb9b89f68e6d2b1cde5a23e2);
+            
+        
+
+        circle_marker_258696626a4f6fcefb0f016d9bd08ed5.bindPopup(popup_d0a298369a2dba3ccc89c00982522df5)
+        ;
+
+        
+    
+    
+            circle_marker_258696626a4f6fcefb0f016d9bd08ed5.bindTooltip(
+                `<div>
+                     Informationen: Fort William
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_2bd3349c33627d7824544ea733315da2 = L.marker(
+                [57.4778, -4.2247],
+                {
+}
+            ).addTo(map_ece1409b3eefab69c712baa78a219fb5);
+        
+    
+            var div_icon_5aa6fe4ec55ddb7d0cd316115eebbeae = L.divIcon({
+  "html": "\u003cdiv style=\"background:#2563eb;color:white;border:2px solid white;border-radius:50%;width:28px;height:28px;line-height:24px;text-align:center;font-weight:bold;\"\u003e4\u003c/div\u003e",
+  "iconSize": [30, 30],
+  "iconAnchor": [15, 15],
+  "className": "empty",
+});
+        
+    
+            marker_2bd3349c33627d7824544ea733315da2.bindTooltip(
+                `<div>
+                     4. Inverness
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2bd3349c33627d7824544ea733315da2.setIcon(div_icon_5aa6fe4ec55ddb7d0cd316115eebbeae);
+            
+    
+            var circle_marker_c586a96214170f17326a024d35ca228a = L.circleMarker(
+                [57.4778, -4.2247],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_ece1409b3eefab69c712baa78a219fb5);
+        
+    
+        var popup_aa3b3882f82bc2f253a9ca53c97d9bdb = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3cd483ba6724c748a0fa16bac727bf65 = $(`<div id="html_3cd483ba6724c748a0fa16bac727bf65" style="width: 100.0%; height: 100.0%;"><b>Station 4: Inverness</b></div>`)[0];
+                popup_aa3b3882f82bc2f253a9ca53c97d9bdb.setContent(html_3cd483ba6724c748a0fa16bac727bf65);
+            
+        
+
+        circle_marker_c586a96214170f17326a024d35ca228a.bindPopup(popup_aa3b3882f82bc2f253a9ca53c97d9bdb)
+        ;
+
+        
+    
+    
+            circle_marker_c586a96214170f17326a024d35ca228a.bindTooltip(
+                `<div>
+                     Informationen: Inverness
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            map_ece1409b3eefab69c712baa78a219fb5.fitBounds(
+                [[55.9533, -3.1883], [56.1165, -3.9369], [56.8198, -5.1052], [57.4778, -4.2247]],
+                {"padding": [20, 20]}
+            );
+        
+    
+            var layer_control_a849718855d675e8057e22c62753a4be_layers = {
+                base_layers : {
+                    "OpenStreetMap" : tile_layer_85b562edd7fdbbd55e6e740dcc3c1676,
+                },
+                overlays :  {
+                },
+            };
+            let layer_control_a849718855d675e8057e22c62753a4be = L.control.layers(
+                layer_control_a849718855d675e8057e22c62753a4be_layers.base_layers,
+                layer_control_a849718855d675e8057e22c62753a4be_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_ece1409b3eefab69c712baa78a219fb5);
+
+        
+    
+            tile_layer_85b562edd7fdbbd55e6e740dcc3c1676.addTo(map_ece1409b3eefab69c712baa78a219fb5);
+        
+    
+                marker_a31e59c8ae7a4975d365fd44b709a4b4.setIcon(div_icon_4b7ed904ff288b7253c18b5b5a5f9aac);
+            
+    
+                marker_25a54dd3aab1756253beae86c3090e23.setIcon(div_icon_27236fee4ff01e9c114656337cecd68f);
+            
+    
+                marker_61149d254352b668e9477f9469d95fcf.setIcon(div_icon_4fe9f35b4f06272fcc064e1f9c7d7de9);
+            
+    
+                marker_2bd3349c33627d7824544ea733315da2.setIcon(div_icon_5aa6fe4ec55ddb7d0cd316115eebbeae);
+            
+</script>
+</html>

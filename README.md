@@ -35,6 +35,13 @@ beziehungsweise eindeutig sein.
   `role="tabpanel"`-Bereiche.
 - **News:** `fetch('assets/news.json')` lädt und prüft die Einträge. Sie werden
   nach Datum absteigend sortiert und sicher mit DOM-Methoden gerendert.
+- **Projects:** Vier Folium-HTML-Karten aus `assets/maps/` sind im responsiven
+  Raster per iframe eingebunden. Die aktualisierten Dateien
+  `map_1_basiskarte (1).html`, `map_2_punkte (1).html`,
+  `map_3_reiseroute (1).html` und `map_4_flaechen_online.html` zeigen eine
+  Basiskarte, Mainzer Marker, eine Schottland-Route und GeoJSON-Länderflächen.
+  `map_5_3d_gebaeude.html` bindet die Cesium-3D-Gebäudeansicht für Mainz ein;
+  Cesium und Gebäudedaten werden von externen Diensten geladen.
 
 ## Veröffentlichte Website
 
